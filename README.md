@@ -16,21 +16,42 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Research on AI Interfaces & Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+While exploring different AI platforms, I noticed some unique and useful features that stand out:
 
-## Learn More
+OpenAI (ChatGPT)
 
-To learn more about Next.js, take a look at the following resources:
+I really admire its simple and clean chat interface.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The suggestion feature (quick reply prompts) makes interaction smooth and beginner-friendly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Hugging Face Spaces
 
-## Deploy on Vercel
+What I like here is that they have different sections for different tasks like:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Image Generation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Text-to-Speech
+
+OCR
+
+Text Analysis
+
+Video Generation
+
+This clear separation helps users easily pick what they want to do.
+
+Claude (Anthropic)
+
+I like Claude’s way of answering with advanced reasoning.
+
+It gives step-by-step thought processes while keeping the answers structured and easy to read.
+
+Also, the ability to handle large context windows is very impressive.
+
+Perplexity AI
+
+What stands out for me is how it shows steps of data gathering.
+
+It explains where the information comes from and how the answer is formed, which builds trust.
