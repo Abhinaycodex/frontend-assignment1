@@ -1,102 +1,228 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import { MessageSquare,Zap, Users, Settings, ChevronRight,Star,Brain,Sparkles,ArrowRight,Bot,Globe,Shield,Download} from 'lucide-react';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    setIsVisible(true);
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const handleChatNavigation = () => {
+    router.push("/chat");
+  };
+
+  const aiModels = [
+    { name: 'GPT-4', description: 'Advanced reasoning and creativity', icon: '🧠', color: 'from-blue-500 to-cyan-500' },
+    { name: 'Claude 3', description: 'Thoughtful and nuanced responses', icon: '🎭', color: 'from-purple-500 to-pink-500' },
+    { name: 'Gemini Pro', description: 'Multimodal AI capabilities', icon: '💎', color: 'from-green-500 to-teal-500' },
+    { name: 'Llama 2', description: 'Open-source powerhouse', icon: '🦙', color: 'from-orange-500 to-red-500' },
+  ];
+
+  const features = [
+    {
+      icon: <MessageSquare className="w-6 h-6" />,
+      title: 'Multi-Model Chat',
+      description: 'Switch between AI models seamlessly in a single conversation'
+    },
+    {
+      icon: <Settings className="w-6 h-6" />,
+      title: 'Advanced Parameters',
+      description: 'Fine-tune temperature, tokens, and other AI parameters'
+    },
+    {
+      icon: <Users className="w-6 h-6" />,
+      title: 'Session Management',
+      description: 'Save, organize, and revisit your AI conversations'
+    },
+    {
+      icon: <Download className="w-6 h-6" />,
+      title: 'Export & Share',
+      description: 'Export conversations and share AI interactions'
+    },
+    {
+      icon: <Shield className="w-6 h-6" />,
+      title: 'Privacy First',
+      description: 'Your conversations stay private and secure'
+    },
+    {
+      icon: <Globe className="w-6 h-6" />,
+      title: 'Cross-Platform',
+      description: 'Works seamlessly across all your devices'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-grey-800 text-white overflow-hidden relative">
+
+      {/* Navigation */}
+      <nav className="relative z-10 px-6 py-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
+              <Brain className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold text-blue-400">
+              AI Playground
+            </span>
+          </div>
+          
+          <div className="flex items-center space-x-6">
+            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
+            <a href="#models" className="text-gray-300 hover:text-white transition-colors">Models</a>
+            <button 
+              onClick={handleChatNavigation}
+              className="px-4 py-2 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center space-x-2"
+            >
+              <span>Launch Chat</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <div className={`relative z-10 max-w-7xl mx-auto px-6 py-20 transition-all duration-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+        <div className="text-center">
+          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-blue-500/30 mb-8">
+            <Sparkles className="w-4 h-4 text-blue-400" />
+            <span className="text-blue-400 text-sm font-medium">Next-Generation AI Interface</span>
+          </div>
+          
+          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+            Chat with
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              {" "}Multiple AIs
+            </span>
+            <br />
+            in One Place
+          </h1>
+          
+          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+            Experience the power of GPT-4, Claude, Gemini, and more AI models in a unified, 
+            professional interface. Compare responses, fine-tune parameters, and unleash 
+            the full potential of artificial intelligence.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button
+              onClick={handleChatNavigation}
+              className="group px-8 py-4 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center space-x-3 shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105"
+            >
+              <MessageSquare className="w-6 h-6" />
+              <span>Start Chatting</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            
+            
+          </div>
+        </div>
+      </div>
+
+      {/* AI Models Section */}
+      <div id="models" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Supported AI Models</h2>
+          <p className="text-xl text-gray-300">Choose from the worlds most advanced AI models</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {aiModels.map((model, index) => (
+            <div 
+              key={model.name}
+              className={`group p-6 rounded-2xl border border-gray-700 hover:border-gray-500 transition-all duration-500 hover:transform hover:scale-105 bg-gradient-to-br ${model.color} bg-opacity-10 backdrop-blur-sm`}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="text-center">
+                <div className="text-4xl mb-4">{model.icon}</div>
+                <h3 className="text-xl font-bold mb-2">{model.name}</h3>
+                <p className="text-gray-300 text-sm">{model.description}</p>
+              </div>
+              
+              <div className="mt-4 flex items-center justify-center">
+                <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${model.color} animate-pulse`} />
+                <span className="ml-2 text-xs text-gray-400">Available</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div id="features" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
+          <p className="text-xl text-gray-300">Everything you need for professional AI interactions</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div 
+              key={feature.title}
+              className={`group p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-all duration-500 backdrop-blur-sm bg-gray-800/50 hover:bg-gray-800/70 transform hover:scale-105`}
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold">{feature.title}</h3>
+              </div>
+              <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Stats Section */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          {[
+            { number: '6+', label: 'AI Models', icon: <Bot className="w-8 h-8" /> },
+            { number: '∞', label: 'Conversations', icon: <MessageSquare className="w-8 h-8" /> },
+            { number: '100%', label: 'Privacy', icon: <Shield className="w-8 h-8" /> },
+            { number: '24/7', label: 'Available', icon: <Zap className="w-8 h-8" /> },
+          ].map((stat, index) => (
+            <div 
+              key={stat.label}
+              className={`p-6 rounded-2xl border border-gray-700 backdrop-blur-sm bg-gray-800/30 transition-all duration-500 hover:bg-gray-800/50 transform hover:scale-105`}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="flex justify-center mb-4 text-blue-400">
+                {stat.icon}
+              </div>
+              <div className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                {stat.number}
+              </div>
+              <div className="text-gray-300">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      
+
+     
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-gray-700 mt-20">
+          
+          <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 AI Playground. Built with Next.js, React, and Tailwind CSS.</p>
+          </div>
+        
       </footer>
     </div>
   );
