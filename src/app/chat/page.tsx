@@ -112,6 +112,7 @@ export default function EnhancedAIInterface() {
     setMessages(prev => [...prev, newMessage]);
     setInputMessage('');
 
+
     try {
       // Prepare the API request
       const requestBody = {
@@ -123,7 +124,8 @@ export default function EnhancedAIInterface() {
         systemMessage: systemMessage.trim() ? systemMessage : undefined,
       };
 
-      const response = await fetch("/api/chat", {
+      console.log(requestBody)
+      const response = await fetch("/api/gemini", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
